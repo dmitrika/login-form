@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { pages } from '../App'
+import { pages } from '../app'
 
 const initialFormErrorsState = {
   email: '',
@@ -84,6 +84,7 @@ export function Login({ API, setCurrentPage }) {
             required="required"
             type="password"
             name="password"
+            placeholder="e.g. password"
             autoComplete="current-password"
             autoCorrect="off"
             autoCapitalize="off"

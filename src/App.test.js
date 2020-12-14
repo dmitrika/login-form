@@ -1,6 +1,6 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 
-import App from './App';
+import App from './app';
 
 test('renders login form and welcome screen', async () => {
   const API = {
