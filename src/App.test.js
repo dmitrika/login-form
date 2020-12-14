@@ -12,7 +12,7 @@ test('renders login form and welcome screen', async () => {
   fireEvent.change(getByLabelText('Password'), { target: { value: 'password' } })
 
   fireEvent.click(getByText('Log in'));
-  expect(getByText('Log in')).toHaveAttribute('disabled')
+  expect(getByText('Loading...')).toHaveAttribute('disabled')
 
   expect(getByText('Loading...')).toBeInTheDocument()
 
@@ -21,7 +21,7 @@ test('renders login form and welcome screen', async () => {
   })
 });
 
-test('renders error for wrong email and removes it when start typing again', async () => {
+test('renders error for wrong email and removes it on focus', async () => {
   const API = {
     login: () => Promise.reject({ email: 'Email is not found' })
   }
@@ -31,7 +31,7 @@ test('renders error for wrong email and removes it when start typing again', asy
   fireEvent.change(getByLabelText('Password'), { target: { value: 'password' } })
 
   fireEvent.click(getByText('Log in'));
-  expect(getByText('Log in')).toHaveAttribute('disabled')
+  expect(getByText('Loading...')).toHaveAttribute('disabled')
 
   expect(getByText('Loading...')).toBeInTheDocument()
 
@@ -39,12 +39,12 @@ test('renders error for wrong email and removes it when start typing again', asy
     expect(getByText('Email is not found')).toBeInTheDocument()
   })
 
-  fireEvent.change(getByLabelText('Email'), { target: { value: 'rybin@hey.com' } })
+  fireEvent.focus(getByLabelText('Email'))
 
   expect(queryByText('Email is not found')).not.toBeInTheDocument()
 });
 
-test('renders error for wrong password and removes it when start typing again', async () => {
+test('renders error for wrong password and removes it on focus', async () => {
   const API = {
     login: () => Promise.reject({ password: 'Password is not correct' })
   }
@@ -54,7 +54,7 @@ test('renders error for wrong password and removes it when start typing again', 
   fireEvent.change(getByLabelText('Password'), { target: { value: '12345' } })
 
   fireEvent.click(getByText('Log in'));
-  expect(getByText('Log in')).toHaveAttribute('disabled')
+  expect(getByText('Loading...')).toHaveAttribute('disabled')
 
   expect(getByText('Loading...')).toBeInTheDocument()
 
@@ -62,7 +62,7 @@ test('renders error for wrong password and removes it when start typing again', 
     expect(getByText('Password is not correct')).toBeInTheDocument()
   })
 
-  fireEvent.change(getByLabelText('Password'), { target: { value: 'anothertry' } })
+  fireEvent.focus(getByLabelText('Password'))
 
   expect(queryByText('Password is not correct')).not.toBeInTheDocument()
 });
@@ -78,7 +78,7 @@ test('renders form error and removes it when start typing again', async () => {
 
   fireEvent.click(getByText('Log in'));
 
-  expect(getByText('Log in')).toHaveAttribute('disabled')
+  expect(getByText('Loading...')).toHaveAttribute('disabled')
   expect(getByText('Loading...')).toBeInTheDocument()
 
   await waitFor(() => {
