@@ -21,6 +21,10 @@ test("renders login form and welcome screen", async () => {
   await waitFor(() => {
     expect(getByText("Welcome to your space")).toBeInTheDocument();
   });
+
+  fireEvent.click(getByText("Log out"));
+
+  expect(getByLabelText("Email")).toBeInTheDocument();
 });
 
 test("renders error for wrong email and removes it on focus", async () => {
