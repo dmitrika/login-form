@@ -1,60 +1,66 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-import { pages } from '../app'
+import { pages } from "../app";
 
 const initialFormErrorsState = {
-  email: '',
-  password: '',
-  formError: ''
-}
+  email: "",
+  password: "",
+  formError: "",
+};
 
 export function Login({ API, setCurrentPage }) {
-  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState(initialFormErrorsState);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFieldFocus = (event) => {
-    const { target: { name } } = event;
+    const {
+      target: { name },
+    } = event;
 
     if (formErrors[name]) {
       setFormErrors({
         ...formErrors,
-        [name]: undefined
+        [name]: undefined,
       });
     }
-  }
+  };
 
   const handleFieldChange = (event) => {
-    const { target: { value, name } } = event;
+    const {
+      target: { value, name },
+    } = event;
 
     setUserInfo({
       ...userInfo,
-      [name]: value
+      [name]: value,
     });
-  }
+  };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    setFormErrors(initialFormErrorsState)
-    setIsLoading(true)
+    setFormErrors(initialFormErrorsState);
+    setIsLoading(true);
 
     API.login(userInfo)
       .then(() => {
-        setCurrentPage(pages.welcome)
+        setCurrentPage(pages.welcome);
       })
-      .catch(errors => {
-        setFormErrors({ ...formErrors, ...errors })
-        setIsLoading(false)
-      })
-  }
+      .catch((errors) => {
+        setFormErrors({ ...formErrors, ...errors });
+        setIsLoading(false);
+      });
+  };
 
   return (
     <main className="paper">
       <h1 className="title">Log in to Account</h1>
       <form action="/login" method="POST" onSubmit={handleFormSubmit}>
         <div className="field">
-          <label htmlFor="email" className="field__label">Email</label>
+          <label htmlFor="email" className="field__label">
+            Email
+          </label>
           <input
             id="email"
             required="required"
@@ -67,18 +73,19 @@ export function Login({ API, setCurrentPage }) {
             value={userInfo.email}
             onChange={handleFieldChange}
             onFocus={handleFieldFocus}
-            className={`field__input ${formErrors.email ? 'field__input--error' : undefined}`}
+            className={`field__input ${
+              formErrors.email ? "field__input--error" : undefined
+            }`}
           />
-          {formErrors.email && <span className="field__error">{formErrors.email}</span>}
+          {formErrors.email && (
+            <span className="field__error">{formErrors.email}</span>
+          )}
         </div>
 
         <div className="field">
-          <label
-            htmlFor="password"
-            className="field__label"
-          >
+          <label htmlFor="password" className="field__label">
             Password
-            </label>
+          </label>
           <input
             id="password"
             required="required"
@@ -91,15 +98,26 @@ export function Login({ API, setCurrentPage }) {
             value={userInfo.password}
             onChange={handleFieldChange}
             onFocus={handleFieldFocus}
-            className={`field__input ${formErrors.password ? 'field__input--error' : undefined}`}
+            className={`field__input ${
+              formErrors.password ? "field__input--error" : undefined
+            }`}
           />
-          {formErrors.password && <span className="field__error">{formErrors.password}</span>}
+          {formErrors.password && (
+            <span className="field__error">{formErrors.password}</span>
+          )}
         </div>
 
-
         <div className="field">
-          <input type="submit" name="commit" value={isLoading ? "Loading..." : "Log in"} disabled={isLoading} className="btn" />
-          {formErrors.formError && <span className="field__error">{formErrors.formError}</span>}
+          <input
+            type="submit"
+            name="commit"
+            value={isLoading ? "Loading..." : "Log in"}
+            disabled={isLoading}
+            className="btn"
+          />
+          {formErrors.formError && (
+            <span className="field__error">{formErrors.formError}</span>
+          )}
         </div>
       </form>
     </main>
