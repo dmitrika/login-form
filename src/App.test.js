@@ -85,7 +85,7 @@ test("renders form error and removes it when start typing again", async () => {
 
   fireEvent.click(getByText("Log in"));
 
-  expect(getByText("Loading...")).toHaveAttribute("disabled")
+  expect(getByText("Loading...")).toHaveAttribute("disabled");
 
   await waitFor(() => {
     expect(getByText("Failed to log in, please try again")).toBeInTheDocument();
