@@ -18,8 +18,6 @@ test("renders login form and welcome screen", async () => {
   fireEvent.click(getByText("Log in"));
   expect(getByText("Loading...")).toHaveAttribute("disabled");
 
-  expect(getByText("Loading...")).toBeInTheDocument();
-
   await waitFor(() => {
     expect(getByText("Welcome to your space")).toBeInTheDocument();
   });
@@ -40,8 +38,6 @@ test("renders error for wrong email and removes it on focus", async () => {
 
   fireEvent.click(getByText("Log in"));
   expect(getByText("Loading...")).toHaveAttribute("disabled");
-
-  expect(getByText("Loading...")).toBeInTheDocument();
 
   await waitFor(() => {
     expect(getByText("Email is not found")).toBeInTheDocument();
@@ -66,8 +62,6 @@ test("renders error for wrong password and removes it on focus", async () => {
   fireEvent.click(getByText("Log in"));
   expect(getByText("Loading...")).toHaveAttribute("disabled");
 
-  expect(getByText("Loading...")).toBeInTheDocument();
-
   await waitFor(() => {
     expect(getByText("Password is not correct")).toBeInTheDocument();
   });
@@ -91,8 +85,7 @@ test("renders form error and removes it when start typing again", async () => {
 
   fireEvent.click(getByText("Log in"));
 
-  expect(getByText("Loading...")).toHaveAttribute("disabled");
-  expect(getByText("Loading...")).toBeInTheDocument();
+  expect(getByText("Loading...")).toHaveAttribute("disabled")
 
   await waitFor(() => {
     expect(getByText("Failed to log in, please try again")).toBeInTheDocument();
