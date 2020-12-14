@@ -40,7 +40,6 @@ export function Login({ API, setCurrentPage }) {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    setFormErrors(initialFormErrorsState);
     setIsLoading(true);
 
     API.login(userInfo)
@@ -48,7 +47,7 @@ export function Login({ API, setCurrentPage }) {
         setCurrentPage(pages.welcome);
       })
       .catch((errors) => {
-        setFormErrors({ ...formErrors, ...errors });
+        setFormErrors({ ...initialFormErrorsState, ...errors });
         setIsLoading(false);
       });
   };
